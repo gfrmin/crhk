@@ -7,7 +7,10 @@ from crhk.items import CompanyRecord
 class CrhkSpider(scrapy.Spider):
     name = "crhk"
     allowed_domains = ["mobile-cr.gov.hk"]
-    start_urls = ["https://www.mobile-cr.gov.hk/mob/cps_criteria.do?queryCRNO=0100001"]
+    numberofcompanies = 2283272
+
+    baseurl = "https://www.mobile-cr.gov.hk/mob/cps_criteria.do?queryCRNO="
+    start_urls = map(lambda x: "".join(("https://www.mobile-cr.gov.hk/mob/cps_criteria.do?queryCRNO=", format(x, '07'))), range(1,numberofcompanies+1))
 
     def parse(self, response):
         namestds = response.css("td.data::text").extract()   # historical dates of different names
