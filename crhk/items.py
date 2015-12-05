@@ -8,8 +8,6 @@
 import scrapy
 
 class CompanyRecord(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
     crno = scrapy.Field()
     companynames = scrapy.Field()
     companytype = scrapy.Field()
