@@ -14,14 +14,14 @@ class CrhkSpider(scrapy.Spider):
 
     def parse(self, response):    
         item = CompanyRecord()
-        item['crno'] = response.css(".info tr:nth-child(1) td:nth-child(2)::text").extract()[0]
+        item['crno'] = response.css(".info tr:nth-child(1) td:nth-child(2)::text").extract_first()
         item['companynames'] = map(unicode.strip, response.css("td tr:nth-child(2) td::text").extract())
         item['companytype'] = map(unicode.strip, response.css("tr:nth-child(3) td:nth-child(2)::text").extract())[0]
-        item['dateofincorporation'] = response.css("tr:nth-child(4) td:nth-child(2)::text").extract()[0].replace(u'\u6708', "")
+        item['dateofincorporation'] = response.css("tr:nth-child(4) td:nth-child(2)::text").extract_first().replace(u'\u6708', "")
         item['activestatus'] = map(unicode.strip, response.css("tr:nth-child(5) td:nth-child(2)::text").extract())[0]
         item['remarks'] = map(unicode.strip, response.css(".sameasbody::text").extract())
         item['windingup'] = map(unicode.strip, response.css("tr:nth-child(7) td:nth-child(2)::text").extract())[0]
-        item['dateofdissolution'] = response.css("tr:nth-child(8) td:nth-child(2)::text").extract()[0].replace(u'\u6708', "")
+        item['dateofdissolution'] = response.css("tr:nth-child(8) td:nth-child(2)::text").extract_first().replace(u'\u6708', "")
         item['registerofcharges'] = map(unicode.strip, response.css("tr:nth-child(9) td:nth-child(2)::text").extract())[0]
         item['note'] = map(unicode.strip, response.css("tr:nth-child(10) td::text").extract())
 
