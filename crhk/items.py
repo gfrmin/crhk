@@ -19,3 +19,4 @@ class CompanyRecord(scrapy.Item):
     registerofcharges = scrapy.Field()
     note = scrapy.Field()
     namehistory = scrapy.Field()
+    scrapetime = scrapy.Field()

@@ -1,13 +1,14 @@
 # coding=utf-8
 
 import scrapy
-
 from crhk.items import CompanyRecord
+
+import datetime
 
 class CrhkSpider(scrapy.Spider):
     name = "crhk"
     allowed_domains = ["mobile-cr.gov.hk"]
-    numberofcompanies = 2316126 # as of 05/12/2015
+    numberofcompanies = 3000000 # more than current number of companies, use CLOSESPIDER_ERRORCOUNT to stop after reaching maximum
 
     baseurl = "https://www.mobile-cr.gov.hk/mob/cps_criteria.do?queryCRNO="
     start_urls = map(lambda x: "".join(("https://www.mobile-cr.gov.hk/mob/cps_criteria.do?queryCRNO=", format(x, '07'))), range(1,3) + range(4,numberofcompanies+1))
@@ -30,10 +31,11 @@ class CrhkSpider(scrapy.Spider):
         for idx, namestd in enumerate(namestds):
             namestdtext = namestd.css("::text").extract()
             if len(namestdtext) == 2:
-                namehistorydict[idx] = {"Date": namestdtext[0], "English": namestdtext[1]}
+                namehistorydict[namestdtext[0]] = {"English" : namestdtext[1]}
             else:
-                namehistorydict[idx] = {"Date": namestdtext[0], "English" : namestdtext[1], "Chinese" : namestdtext[2]}
+                namehistorydict[namestdtext[0]] = {"English" : namestdtext[1], "Chinese" : namestdtext[2]}
 
         item['namehistory'] = namehistorydict
+        item['scrapetime'] = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
         yield(item)
     

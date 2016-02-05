@@ -83,3 +83,9 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_DIR='httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+CLOSESPIDER_ERRORCOUNT=2
+
+FEED_URI = 's3://hkdata/crhk/%(name)s/%(time)s.json'
+FEED_FORMAT = 'jsonlines'
+
