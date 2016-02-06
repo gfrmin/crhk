@@ -86,6 +86,6 @@ DOWNLOADER_MIDDLEWARES = {
 
 CLOSESPIDER_ERRORCOUNT=2
 
-FEED_URI = 's3://hkdata/crhk/%(name)s/%(time)s.json'
+FEED_URI = 's3://hkdata/crhk/%(name)s/%(time)s.jl'
 FEED_FORMAT = 'jsonlines'
 
